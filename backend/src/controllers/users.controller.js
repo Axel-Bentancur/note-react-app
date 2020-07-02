@@ -1,16 +1,15 @@
 const userCtrl = {};
 
-const UserModel = require("../models/User");
 const User = require("../models/User");
 
 userCtrl.getUser = async (req, res) => {
-  const user = await UserModel.find();
+  const user = await User.find();
   res.json(user);
 };
 
 userCtrl.createUser = async (req, res) => {
   const { user } = req.body;
-  const newUser = new UserModel({ user });
+  const newUser = new User({ user });
   await newUser.save();
   res.json("user created");
 };

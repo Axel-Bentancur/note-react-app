@@ -1,9 +1,9 @@
 const notesCtrl = {};
 
-const NoteModel = require("../models/Note");
+const Note = require("../models/Note");
 
 notesCtrl.getNotes = async (req, res) => {
-  const notes = await NoteModel.find();
+  const notes = await Note.find();
   res.json(notes);
 };
 
@@ -16,7 +16,7 @@ notesCtrl.createNote = async (req, res) => {
     author,
   });
   await newNote.save();
-  res.json({ message: "post request" });
+  res.json({ message: "note created" });
 };
 
 notesCtrl.getNote = async (req, res) => {
@@ -26,12 +26,11 @@ notesCtrl.getNote = async (req, res) => {
 
 notesCtrl.updateNote = async (req, res) => {
   const { title, content, author } = req.body;
-  await Note.findOneAndUpdate(req.params.id, {
+  await Note.findByIdAndUpdate(req.params.id, {
     title,
     content,
     author,
   });
-
   res.json({ message: "note updated" });
 };
 
